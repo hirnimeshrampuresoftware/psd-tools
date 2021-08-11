@@ -30,11 +30,11 @@ jobs:
         container:
           - quay.io/pypa/manylinux2014_x86_64
           - quay.io/pypa/manylinux2014_aarch64
-        python-version:
-          - cp36-cp36m
-          - cp37-cp37m
-          - cp38-cp38
-          - cp39-cp39
+        python-version: [3.6, 3.7, 3.8, 3.9]
+          #- cp36-cp36m
+          #- cp37-cp37m
+          #- cp38-cp38
+          #- cp39-cp39
     container: ${{ matrix.container }}
     steps:
     - uses: actions/checkout@v1
