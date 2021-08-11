@@ -67,6 +67,9 @@ jobs:
       id: qemu
       uses: docker/setup-qemu-action@v1
     - name: Build Wheel
+      env:
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
             docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
             ${{ env.img }} \
@@ -76,6 +79,7 @@ jobs:
             pip install cython wheel twine && \
             pip wheel . -w dist/ --no-deps && \
             auditwheel repair dist/*.whl --plat $AUDITWHEEL_PLAT && \
+            twine upload --skip-existing wheelhouse/* && \
             deactivate'       
   bdist_other:
     runs-on: ${{ matrix.os }}
