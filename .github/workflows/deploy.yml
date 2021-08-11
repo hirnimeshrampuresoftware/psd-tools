@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       py: /opt/python/${{ matrix.pyver }}/bin/python
-      img: quay.io/pypa/manylinux2014_$aarch64
+      img: quay.io/pypa/manylinux2014_aarch64
     steps:
     - name: Checkout
       uses: actions/checkout@v2
