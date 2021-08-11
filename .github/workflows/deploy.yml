@@ -38,8 +38,8 @@ jobs:
     container: ${{ matrix.container }}
     steps:
     - uses: actions/checkout@v1
-    - name: Set PATH
-      run: echo "/opt/python/${{ matrix.python-version }}/bin" >> $GITHUB_PATH
+   # - name: Set PATH
+    #  run: echo "/opt/python/${{ matrix.python-version }}/bin" >> $GITHUB_PATH
     - name: Set up QEMU
       if: ${{ matrix.container == 'quay.io/pypa/manylinux2014_aarch64' }}
       uses: docker/setup-qemu-action@v1    
