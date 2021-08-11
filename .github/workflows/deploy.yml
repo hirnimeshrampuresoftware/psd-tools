@@ -29,6 +29,7 @@ jobs:
       matrix:
         container:
           - quay.io/pypa/manylinux2014_x86_64
+          - quay.io/pypa/manylinux2014_aarch64
         python-version:
           - cp36-cp36m
           - cp37-cp37m
