@@ -57,7 +57,7 @@ jobs:
       - name: Install cibuildwheel
         run: |
           python -m pip install --upgrade pip
-          python -m pip install cibuildwheel        
+          python -m pip install cython cibuildwheel       
       - name: Build wheels
         run: |
           python -m cibuildwheel --output-dir wheelhouse        
