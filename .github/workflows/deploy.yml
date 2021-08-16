@@ -19,14 +19,14 @@ jobs:
           - os: macos-latest
             archs: aarch64
     env:
-      CIBW_BUILD: 'cp37-* cp38-* cp39-*'
+      CIBW_BUILD: 'cp36-* cp37-* cp38-* cp39-*'
       CIBW_BEFORE_BUILD: pip install cython numpy
-      CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-      CIBW_MANYLINUX_AARCH64_IMAGE: manylinux2014
+      #CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+      #CIBW_MANYLINUX_AARCH64_IMAGE: manylinux2014
       CIBW_SKIP: '*-manylinux*_i686'
       CIBW_ARCHS: ${{ matrix.archs }}
-      CIBW_TEST_REQUIRES: pytest pytest-cov ipython cython
-      CIBW_TEST_COMMAND: "py.test --cov=psd_tools --cov-append --cov-report=term"
+      CIBW_TEST_REQUIRES: tox
+      CIBW_TEST_COMMAND: "tox -e py"
       CIBW_BUILD_VERBOSITY: 1
 
     steps:
