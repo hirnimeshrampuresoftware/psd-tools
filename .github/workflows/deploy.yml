@@ -47,6 +47,7 @@ jobs:
           python -m pip install cibuildwheel       
       - name: Build wheels
         run: |
+          pwd
           python -m cibuildwheel --output-dir wheelhouse
       - uses: actions/upload-artifact@v2
         with:
