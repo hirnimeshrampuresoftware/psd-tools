@@ -38,21 +38,33 @@ jobs:
             archs: auto
           - os: macos-latest
             archs: auto
+    env:
+      CIBW_SKIP: cp27-* cp35-* pp*
+      CIBW_ARCHS: ${{matrix.archs}}
+      CIBW_TEST_REQUIRES: tox
+      CIBW_TEST_COMMAND: "tox -e py"
+
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/setup-python@v2
         name: Install Python
         with:
-          python-version: '3.9'
-
+          python-version: '3.7'
       - name: Set up QEMU
         if: ${{ matrix.archs == 'aarch64' }}
         uses: docker/setup-qemu-action@v1
+      - name: Install cibuildwheel
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install cibuildwheel        
       - name: Build wheels
-        uses: joerick/cibuildwheel@v1.9.0
-        env:
-          CIBW_SKIP: cp27-* cp35-* pp*
-          CIBW_ARCHS: ${{matrix.archs}}
-          CIBW_TEST_REQUIRES: tox
-          CIBW_TEST_COMMAND: "tox -e py"
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse        
+   #   - name: Build wheels
+    #    uses: joerick/cibuildwheel@v1.9.0
+     #   env:
+      #    CIBW_SKIP: cp27-* cp35-* pp*
+       #   CIBW_ARCHS: ${{matrix.archs}}
+        #  CIBW_TEST_REQUIRES: tox
+         # CIBW_TEST_COMMAND: "tox -e py"
