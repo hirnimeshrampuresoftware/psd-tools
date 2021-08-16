@@ -26,8 +26,8 @@ jobs:
       CIBW_SKIP: '*-manylinux*_i686'
       CIBW_ARCHS: ${{ matrix.archs }}
       CIBW_TEST_REQUIRES: tox
-      CIBW_TEST_COMMAND: "tox -e py {project}/"
-      CIBW_BUILD_VERBOSITY: 1
+      CIBW_TEST_COMMAND: "tox"
+      #CIBW_BUILD_VERBOSITY: 1
 
     steps:
       - uses: actions/checkout@v2
