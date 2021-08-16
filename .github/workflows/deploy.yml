@@ -48,6 +48,7 @@ jobs:
       - name: Build wheels
         run: |
           pwd
+          file setup.cfg
           python -m cibuildwheel --output-dir wheelhouse
       - uses: actions/upload-artifact@v2
         with:
