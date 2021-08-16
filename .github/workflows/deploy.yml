@@ -26,7 +26,7 @@ jobs:
       CIBW_SKIP: '*-manylinux*_i686'
       CIBW_ARCHS: ${{ matrix.archs }}
       CIBW_TEST_REQUIRES: pytest pytest-cov ipython cython
-      CIBW_TEST_COMMAND: "py.test --cov=psd_tools --cov-append --cov-report=term []"
+      CIBW_TEST_COMMAND: "py.test --cov=psd_tools --cov-append --cov-report=term"
       CIBW_BUILD_VERBOSITY: 1
 
     steps:
