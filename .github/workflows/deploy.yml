@@ -39,9 +39,14 @@ jobs:
             archs: aarch64
     env:
       CIBW_BUILD: 'cp37-* cp38-* cp39-*'
+      CIBW_MANYLINUX_X86_64_IMAGE: manylinux1
+      CIBW_MANYLINUX_I686_IMAGE: manylinux1
+      CIBW_MANYLINUX_AARCH64_IMAGE: manylinux2014
+      CIBW_SKIP: '*-manylinux*_i686'
       CIBW_ARCHS: ${{ matrix.archs }}
       CIBW_TEST_REQUIRES: tox
       CIBW_TEST_COMMAND: "tox -e py"
+      CIBW_BUILD_VERBOSITY: 1
 
     steps:
       - uses: actions/checkout@v2
@@ -53,6 +58,8 @@ jobs:
       - name: Set up QEMU
         if: ${{ matrix.archs == 'aarch64' }}
         uses: docker/setup-qemu-action@v1
+        with:
+          platforms: arm64
       - name: Install cibuildwheel
         run: |
           python -m pip install --upgrade pip
