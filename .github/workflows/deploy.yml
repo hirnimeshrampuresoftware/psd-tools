@@ -38,7 +38,7 @@ jobs:
           - os: macos-latest
             archs: aarch64
     env:
-      CIBW_SKIP: cp27-* cp35-* pp*
+      CIBW_BUILD: 'cp37-* cp38-* cp39-*'
       CIBW_ARCHS: ${{ matrix.archs }}
       CIBW_TEST_REQUIRES: tox
       CIBW_TEST_COMMAND: "tox -e py"
