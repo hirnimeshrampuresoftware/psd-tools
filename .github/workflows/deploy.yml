@@ -28,19 +28,18 @@ jobs:
     name: Build wheels on ${{ matrix.archs }} for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          - os: ubuntu-latest
-            archs: auto
-          - os: ubuntu-latest
-            archs: aarch64
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        archs: [auto, aarch64]
+        exclude:
           - os: windows-latest
-            archs: auto
+            archs: aarch64
           - os: macos-latest
-            archs: auto
+            archs: aarch64
     env:
       CIBW_SKIP: cp27-* cp35-* pp*
-      CIBW_ARCHS: ${{matrix.archs}}
+      CIBW_ARCHS: ${{ matrix.archs }}
       CIBW_TEST_REQUIRES: tox
       CIBW_TEST_COMMAND: "tox -e py"
 
@@ -49,8 +48,8 @@ jobs:
 
       - uses: actions/setup-python@v2
         name: Install Python
-        with:
-          python-version: '3.7'
+       # with:
+        #  python-version: '3.7'
       - name: Set up QEMU
         if: ${{ matrix.archs == 'aarch64' }}
         uses: docker/setup-qemu-action@v1
@@ -60,7 +59,10 @@ jobs:
           python -m pip install cython cibuildwheel       
       - name: Build wheels
         run: |
-          python -m cibuildwheel --output-dir wheelhouse        
+          python -m cibuildwheel --output-dir wheelhouse
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./wheelhouse/*.whl          
    #   - name: Build wheels
     #    uses: joerick/cibuildwheel@v1.9.0
      #   env:
