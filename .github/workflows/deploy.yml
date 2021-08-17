@@ -42,7 +42,7 @@ jobs:
           CIBW_SKIP: '*-manylinux*_i686'
           CIBW_ARCHS: ${{ matrix.archs }}
           CIBW_TEST_REQUIRES: tox cython numpy
-          CIBW_TEST_COMMAND: "tox -e py"
+          CIBW_TEST_COMMAND: tox -e py
           CIBW_BUILD_VERBOSITY: 1        
         #run: |
          # pwd
