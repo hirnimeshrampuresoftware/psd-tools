@@ -64,6 +64,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
+          name: wheels
           path: ./dist/*.whl
 
   deploy:
@@ -82,10 +83,11 @@ jobs:
       - uses: actions/download-artifact@v2
         id: download
         with:
-          path: ./wheelhouse    
+          name: wheels
+          path: ./dist    
       - name: Build and publish
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+          #TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           twine upload --skip-existing dist/*
