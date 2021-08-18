@@ -63,7 +63,7 @@ jobs:
   deploy:
     name: Release
     needs: [sdist, build_wheels]
-    if: github.repository_owner == 'psd-tools'
+   # if: github.repository_owner == 'psd-tools'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
