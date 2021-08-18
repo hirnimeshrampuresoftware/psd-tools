@@ -72,7 +72,7 @@ jobs:
       - uses: actions/download-artifact@v2
         id: download
         with:
-          name: wheels
+          #name: wheels
           path: ./dist    
       - name: Build and publish
         env:
