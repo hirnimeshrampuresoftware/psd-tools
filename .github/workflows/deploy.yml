@@ -1,6 +1,6 @@
 name: PyPI Deployment
 
-on: [push]
+on:
   release:
     types: [created]
  
