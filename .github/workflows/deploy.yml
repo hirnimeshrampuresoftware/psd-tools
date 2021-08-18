@@ -22,7 +22,7 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py sdist
-        twine upload --skip-existing wheelhouse/*
+        twine upload --skip-existing dist/*
 
   build_wheels:
     name: Build wheels on ${{ matrix.archs }} for ${{ matrix.os }}
@@ -50,6 +50,8 @@ jobs:
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.1.1
+        run: |
+          python -m cibuildwheel --output-dir dist
         env:
           CIBW_BUILD: 'cp37-* cp38-* cp39-*'
           CIBW_BEFORE_BUILD: pip install cython
@@ -58,7 +60,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          path: ./wheelhouse/*.whl
+          path: ./dist/*.whl
 
   deploy:
     name: Release
@@ -79,4 +81,4 @@ jobs:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
-          twine upload --skip-existing wheelhouse/*
+          twine upload --skip-existing dist/*
